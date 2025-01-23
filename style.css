@@ -1,0 +1,184 @@
+*, *::before, *::after {box-sizing: border-box;}
+* {margin: 0;}
+body {line-height: 1.5; -webkit-font-smoothing: antialiased;}
+img, picture, video, canvas, svg {display: block; max-width: 100%;}
+input, button, textarea, select {font: inherit;}
+p, h1, h2, h3, h4, h5, h6 {overflow-wrap: break-word;}
+#root, #__next {isolation: isolate;}
+button {cursor: pointer; background: none; border: none; text-align: left; color: inherit;}
+
+:root {
+    font-family: Inter, sans-serif;
+    font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
+    --hue: 200; /* Base hue for the blue theme */
+    --background-color: hsl(var(--hue), 15%, 98%);
+    --card-background-color: hsl(var(--hue), 15%, 100%);
+    --primary-color: hsl(var(--hue), 80%, 50%);
+    --secondary-color: hsl(var(--hue), 60%, 40%);
+    --text-color: hsl(var(--hue), 20%, 20%);
+    --muted-text-color: hsl(var(--hue), 15%, 50%);
+    --border-color: hsl(var(--hue), 15%, 90%);
+    --hover-color: hsl(var(--hue), 15%, 97%);
+    --destructive-color: hsl(0, 80%, 50%);
+    --destructive-color-background: hsl(0, 80%, 95%);
+
+    --background-color: 196deg 5% 67%;
+    --shadow-elevation-low:
+        0.3px 0.3px 0.6px hsl(var(--background-color) / 0),
+        1.2px 1.2px 2.5px hsl(var(--background-color) / 0.39);
+    --shadow-elevation-medium:
+        0.3px 0.3px 0.6px hsl(var(--background-color) / 0),
+        5.9px 6px 12.6px hsl(var(--background-color) / 0.55);
+    --shadow-elevation-high:
+        0.3px 0.3px 0.6px hsl(var(--background-color) / 0),
+        8.2px 8.3px 17.5px hsl(var(--background-color) / 0.45),
+        25.5px 25.9px 54.5px hsl(var(--background-color) / 0.91);
+  }
+  @supports (font-variation-settings: normal) {
+    :root { font-family: InterVariable, sans-serif; }
+  }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --hue: 200; /* Base hue for the blue theme */
+        --background-color: hsl(var(--hue), 5%, 10%);
+        --card-background-color: hsl(var(--hue), 5%, 12%);
+        --text-color: hsl(var(--hue), 5%, 90%);
+        --muted-text-color: hsl(var(--hue), 5%, 60%);
+        --border-color: hsl(var(--hue), 5%, 17%);
+        --hover-color: hsl(var(--hue), 5%, 15%);
+        --destructive-color: hsl(0, 80%, 65%);
+        --destructive-color-background: hsl(0, 15%, 15%);
+
+        --shadow-elevation-low:
+            0.3px 0.3px 0.6px hsl(var(--background-color) / 0),
+            1.2px 1.2px 2.5px hsl(var(--background-color) / 0.39);
+        --shadow-elevation-medium:
+            0.3px 0.3px 0.6px hsl(var(--background-color) / 0),
+            5.9px 6px 12.6px hsl(var(--background-color) / 0.55);
+        --shadow-elevation-high:
+            0.3px 0.3px 0.6px hsl(var(--background-color) / 0),
+            8.2px 8.3px 17.5px hsl(var(--background-color) / 0.45),
+            25.5px 25.9px 54.5px hsl(var(--background-color) / 0.91);
+    }
+}
+
+body {
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+main {
+    padding-top: 10vh;
+    max-width: 60ch;
+    margin: auto;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+#contextual-menu:popover-open, .submenu {
+    background-color: var(--card-background-color);
+    box-shadow: var(--shadow-elevation-medium);
+    outline: 1px solid var(--border-color);
+    color: var(--text-color);
+    border: none;
+    font-size: 0.875rem;
+    border-radius: 0.25rem;
+    overflow: visible;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    transition-behavior: allow-discrete;
+
+    @starting-style {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    li:has(> button) {
+        margin: 0.25em 0.25em;
+        position: relative;
+    }
+
+    li:has(> ul:not(.submenu)) {border-bottom: 1px solid var(--border-color);}
+
+    button {
+        display: grid;
+        width: 100%;
+        grid-template-columns: [icon-start] 1.25em [icon-end label-start] auto [label-end kbd-start] auto [kbd-end];
+        align-items: center;
+        padding: 0.25em;
+        border-radius: 0.25rem;
+
+        svg:nth-child(1) {grid-column: icon;}
+        p {grid-column: label; padding-inline: 0.5em 4em;}
+        kbd, svg:nth-child(2) {grid-column: kbd;}
+
+        &:hover{background-color: var(--hover-color);}
+        &:focus-visible{background-color: var(--hover-color);}
+    }
+
+    button:disabled {
+        color: var(--border-color);
+        svg {fill: var(--border-color);}
+        kbd {color: var(--border-color);}
+        cursor: not-allowed;
+        &:hover{background-color: transparent;}
+    }
+
+    button.destructive {
+        color: var(--destructive-color);
+        &:hover {background-color: var(--destructive-color-background);}
+        &:focus-visible  {background-color: var(--destructive-color-background); outline: 1px solid     var(--destructive-color);}
+        svg {fill: var(--destructive-color);}
+    }
+
+    li:has(> .submenu):hover ul, .submenu.open {   
+        visibility: visible;
+        position: absolute;
+        transform: scale(1);
+        opacity: 1;
+        transition: all 0.2s ease;
+    }
+
+    li:has(> .submenu) ul, .submenu:not(.open) {
+        position: absolute;
+        visibility: hidden;
+        transform: scale(0.8);
+        opacity: 0;
+        transition: all 0.2s ease;
+    }
+
+    kbd {
+        color: var(--muted-text-color);
+        font-family: monospace;
+        text-align: right;
+        letter-spacing: 0.25em;
+    }
+
+    svg {
+        fill: var(--muted-text-color);
+        width: auto;
+        height: 100%;
+    }
+}
+
+#contextual-menu-container {
+    border: 1px solid var(--border-color);
+    background-color: var(--card-background-color);
+    height: min(500px);
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--border-color);
+  }
+
+
+  [data-position-inline="right"]:has(.submenu) ul {right: 100%; transform-origin: right center;}
+  [data-position-inline=""]:has(.submenu) ul {left: 100%; transform-origin: left center;}
+  [data-position-block="bottom"]:has(.submenu) ul {bottom: 0%;}
+  [data-position-block=""]:has(.submenu) ul {top: 0;}
