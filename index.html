@@ -7,8 +7,9 @@
     <link rel="preconnect" href="https://rsms.me/">
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet" />
     <meta name="description" content="Contextual menu">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 </head>
@@ -47,12 +48,40 @@
                             </button>
                         </li>
                         <li >
-                            <button >
+                            <button  aria-haspopup="true" aria-expanded="false">
                                 <svg width="24" height="24"><use xlink:href="#refresh"></use></svg>
                                 <p>Refresh</p>
+                                <svg width="24" height="24"><use xlink:href="#chevron_right"></use></svg>
                             </button>
+                            <form class="submenu" role="menu" aria-label="Download Options">
+                                <div>
+                                    <label>
+                                        <input type="radio" name="format" value="PDF">
+                                        <p>PDF</p>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="format" value="PNG">
+                                        <p>PNG</p>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="format" value="SVG">
+                                        <p>SVG</p>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <input type="radio" name="format" value="JPEG">
+                                        <p>JPEG</p>
+                                    </label>
+                                </div>
+                            </form>
+                            
                         </li>
-                        <li data-position-inline="" data-position-block="">
+                        <li>
                             <button  aria-haspopup="true" aria-expanded="false">
                                 <svg width="24" height="24"><use xlink:href="#download"></use></svg>
                                 <p>Download</p>
@@ -83,7 +112,31 @@
             </ul>
         </div>
 
-
+        <table>
+            <thead>
+                <tr>
+                    <Th>Titre 1</Th>
+                    <Th>Titre 2</Th>
+                    <Th>Titre 3</Th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Donnée 1</td>
+                    <td>Donnée 2</td>
+                    <td>Donnée 3</td>
+                </tr>
+                <tr>
+                    <td>Donnée 1</td>
+                    <td>Donnée 2</td>
+                    <td>Donnée 3</td>
+                </tr>
+                <tr>
+                    <td>Donnée 1</td>
+                    <td>Donnée 2</td>
+                    <td>Donnée 3</td>
+                </tr>
+        </table>
         
     </main>
     <script src="script.js"></script>

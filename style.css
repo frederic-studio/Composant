@@ -11,14 +11,14 @@ button {cursor: pointer; background: none; border: none; text-align: left; color
     font-family: Inter, sans-serif;
     font-feature-settings: 'liga' 1, 'calt' 1; /* fix for Chrome */
     --hue: 200; /* Base hue for the blue theme */
-    --background-color: hsl(var(--hue), 15%, 98%);
-    --card-background-color: hsl(var(--hue), 15%, 100%);
+    --background-color: hsl(var(--hue), 5%, 98%);
+    --card-background-color: hsl(var(--hue), 5%, 100%);
     --primary-color: hsl(var(--hue), 80%, 50%);
     --secondary-color: hsl(var(--hue), 60%, 40%);
-    --text-color: hsl(var(--hue), 20%, 20%);
-    --muted-text-color: hsl(var(--hue), 15%, 50%);
-    --border-color: hsl(var(--hue), 15%, 90%);
-    --hover-color: hsl(var(--hue), 15%, 97%);
+    --text-color: hsl(var(--hue), 5%, 20%);
+    --muted-text-color: hsl(var(--hue), 5%, 50%);
+    --border-color: hsl(var(--hue), 5%, 90%);
+    --hover-color: hsl(var(--hue), 5%, 97%);
     --destructive-color: hsl(0, 80%, 50%);
     --destructive-color-background: hsl(0, 80%, 95%);
 
@@ -90,7 +90,9 @@ ul {
     font-size: 0.875rem;
     border-radius: 0.25rem;
     overflow: visible;
+    visibility: visible;
     transition: transform 0.2s ease, opacity 0.2s ease;
+    position: absolute;
     transition-behavior: allow-discrete;
 
     @starting-style {
@@ -98,14 +100,14 @@ ul {
         opacity: 0;
     }
 
-    li:has(> button) {
-        margin: 0.25em 0.25em;
+    li:has(> button), div:has( > label) {
+        margin: 0.25em;
         position: relative;
     }
 
     li:has(> ul:not(.submenu)) {border-bottom: 1px solid var(--border-color);}
 
-    button {
+    button, label {
         display: grid;
         width: 100%;
         grid-template-columns: [icon-start] 1.25em [icon-end label-start] auto [label-end kbd-start] auto [kbd-end];
@@ -115,7 +117,7 @@ ul {
 
         svg:nth-child(1) {grid-column: icon;}
         p {grid-column: label; padding-inline: 0.5em 4em;}
-        kbd, svg:nth-child(2) {grid-column: kbd;}
+        kbd, svg:nth-child(2) {grid-column: kbd; justify-self: end;}
 
         &:hover{background-color: var(--hover-color);}
         &:focus-visible{background-color: var(--hover-color);}
@@ -136,21 +138,6 @@ ul {
         svg {fill: var(--destructive-color);}
     }
 
-    li:has(> .submenu):hover ul, .submenu.open {   
-        visibility: visible;
-        position: absolute;
-        transform: scale(1);
-        opacity: 1;
-        transition: all 0.2s ease;
-    }
-
-    li:has(> .submenu) ul, .submenu:not(.open) {
-        position: absolute;
-        visibility: hidden;
-        transform: scale(0.8);
-        opacity: 0;
-        transition: all 0.2s ease;
-    }
 
     kbd {
         color: var(--muted-text-color);
@@ -163,8 +150,15 @@ ul {
         fill: var(--muted-text-color);
         width: auto;
         height: 100%;
+        justify-self: end;
     }
 }
+
+.submenu {
+    top: 0;
+    left: 100%;
+}
+
 
 #contextual-menu-container {
     border: 1px solid var(--border-color);
@@ -178,7 +172,20 @@ ul {
   }
 
 
-  [data-position-inline="right"]:has(.submenu) ul {right: 100%; transform-origin: right center;}
-  [data-position-inline=""]:has(.submenu) ul {left: 100%; transform-origin: left center;}
-  [data-position-block="bottom"]:has(.submenu) ul {bottom: 0%;}
-  [data-position-block=""]:has(.submenu) ul {top: 0;}
+button[aria-expanded="true"] + .submenu {
+    visibility: visible;
+    transition: transform 0.1s ease, opacity 0.2s ease;
+    position: absolute;
+    transition-behavior: allow-discrete;
+    transform: scale(1);
+    opacity: 1;
+}
+button[aria-expanded="false"] + .submenu {
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.1s ease, opacity 0.1s ease;
+    position: absolute;
+    transition-behavior: allow-discrete;
+    transform: scale(0.8);
+    opacity: 0;
+}
