@@ -163,12 +163,12 @@ ul {
 #contextual-menu-container {
     border: 1px solid var(--border-color);
     background-color: var(--card-background-color);
+    color: var(--border-color);
     height: min(500px);
     border-radius: 0.5rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--border-color);
   }
 
 
@@ -183,9 +183,6 @@ button[aria-expanded="true"] + .submenu {
 button[aria-expanded="false"] + .submenu {
     visibility: hidden;
     pointer-events: none;
-    transition: transform 0.1s ease, opacity 0.1s ease;
-    position: absolute;
-    transition-behavior: allow-discrete;
     transform: scale(0.8);
     opacity: 0;
 }
